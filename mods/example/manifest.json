@@ -1,0 +1,16 @@
+{
+    "name": "HP Boost",
+    "version": "1.0.0",
+    "author": "Pira",
+    "description": "Increases HP.",
+    "main_script": "example.gd",
+    "game_version": "*",
+    "settings": [
+        {
+            "name": "extra_max_health",
+            "label": "Extra Max Health",
+            "type": "int",
+            "default": 50
+        }
+    ]
+}

@@ -1,0 +1,60 @@
+[gd_scene load_steps=4 format=3 uid="uid://b5w7f1y2xqy2v"]
+
+[ext_resource type="Script" uid="uid://dkr2u21dmh2xf" path="res://addons/modloader/mod_manager.gd" id="1_f8c6k"]
+[ext_resource type="PackedScene" uid="uid://bv7pmwitwepj" path="res://ui/controls/button/CustomButton.tscn" id="2_c0ass"]
+[ext_resource type="Theme" uid="uid://yjkuilqc1xqg" path="res://assets/themes/personal_style.tres" id="3_abcde"]
+
+[node name="ModManager" type="CanvasLayer"]
+layer = 3
+script = ExtResource("1_f8c6k")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(0, 0, 0, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 48.0
+offset_top = 27.0
+offset_right = -48.0
+offset_bottom = -27.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_abcde")
+
+[node name="Label" type="Label" parent="ColorRect/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Mod Manager"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ColorRect/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ModList" type="VBoxContainer" parent="ColorRect/VBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="ReloadButton" parent="ColorRect/VBoxContainer/HBoxContainer" instance=ExtResource("2_c0ass")]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Reload Mods"
+
+[node name="BackButton" parent="ColorRect/VBoxContainer/HBoxContainer" instance=ExtResource("2_c0ass")]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Back"

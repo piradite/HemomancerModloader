@@ -1,0 +1,68 @@
+[gd_scene load_steps=5 format=3 uid="uid://dqvn04scsfg2"]
+
+[ext_resource type="Script" uid="uid://b8sj8xbjhyb7c" path="res://addons/modloader/mod_settings_menu.gd" id="1_f8c6k"]
+[ext_resource type="Theme" uid="uid://5ue1moufug80" path="res://assets/themes/main_menu/main_menu_theme.tres" id="2_abcde"]
+[ext_resource type="PackedScene" uid="uid://bv7pmwitwepj" path="res://ui/controls/button/CustomButton.tscn" id="3_c0ass"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w2a88"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="ModSettingsCanvas" type="CanvasLayer"]
+layer = 4
+
+[node name="ModSettingsMenu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_f8c6k")
+
+[node name="ColorRect" type="ColorRect" parent="ModSettingsMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.8)
+
+[node name="PanelContainer" type="PanelContainer" parent="ModSettingsMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_abcde")
+theme_override_styles/panel = SubResource("StyleBoxFlat_w2a88")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ModSettingsMenu/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ModName" type="Label" parent="ModSettingsMenu/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Mod Settings"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ModSettingsMenu/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1000, 500)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Settings" type="VBoxContainer" parent="ModSettingsMenu/PanelContainer/VBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BackButton" parent="ModSettingsMenu/PanelContainer/VBoxContainer" instance=ExtResource("3_c0ass")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Back"
