@@ -1,8 +1,135 @@
-Modloader for the upcoming game Hemomancer, currently work in progress.
+# Hemomancer Modloader
 
-how to use?
+This is a modloader for the game Hemomancer. It allows you to create and manage mods that can change the game's behavior and more.
 
-drop the addon into decompiled Hemomancer code
-place the mods in your `.local/share/godot/app_userdata/Hemomancer/` or appdata (for windows)
+## Installation
 
-enable the plugin in project settings
+1.  **Download the Modloader:** Download the latest version of the modloader from the releases page.
+2.  **Extract the Files:** Extract the downloaded archive. You should see an `addons` folder.
+3.  **Place the `addons` folder:** Place the `addons` folder in the same directory as the Hemomancer game executable.
+4.  **Set Launch Options:** In your game launcher (e.g., Steam), add the following to the game's launch options:
+    ```
+    --script addons/modloader/setup.gd
+    ```
+5.  **Run the Game:** Start the game once. The modloader will perform a one-time setup. You will see a confirmation message, and the game will restart.
+6.  **Done!** The modloader is now installed and working.
+
+## Mod Directory
+
+Mods should be placed in the `mods` directory, which is located in the game's `user://` data directory. If the directory is missing, simply create a folder.
+Default locations for the `mods` directory:
+
+*   **Windows:** `%APPDATA%\Godot\app_userdata\Hemomancer\mods`
+*   **Linux:** `~/.local/share/godot/app_userdata/Hemomancer/mods`
+
+## Creating Mods
+
+Step-by-step guide:
+
+### 1. Create a Mod Folder
+
+Create a new folder for your mod inside the `user://mods` directory. The name of the folder will be your mod's ID. For example, `user://mods/my_mod`.
+
+### 2. Create a `manifest.json` File
+
+Every mod needs a `manifest.json` file in its root directory. This file contains metadata about your mod:
+
+```json
+{
+    "name": "My Mod",
+    "author": "Name",
+    "version": "1.0.0",
+    "description": "This mod does things.",
+    "main_script": "main.gd",
+    "game_version": "*",
+    "dependencies": {},
+    "settings": [],
+    "stats": {},
+    "modifiers": {}
+}
+```
+
+**Manifest Fields:**
+
+*   `name` (String): The name of your mod.
+*   `author` (String): Your name.
+*   `version` (String): The version of your mod.
+*   `description` (String): A description of your mod.
+*   `main_script` (String): The path to your mod's main script file, relative to the mod's root directory.
+*   `game_version` (String): The version of Hemomancer that your mod is compatible with. Use `*` for all versions.
+*   `dependencies` (Dictionary): A dictionary of other mods that your mod depends on. The key is the mod ID, and the value is the required version.
+*   `settings` (Array): An array of settings that your mod provides. See the "Settings" section below for more details.
+*   `stats` (Dictionary): A dictionary of stats that your mod adds to the player. The key is the stat name, and the value is the amount to add.
+*   `modifiers` (Dictionary): A dictionary of stat modifiers that your mod applies to the player. The key is the stat name, and the value is the multiplier.
+
+### 3. Create the Main Script
+
+The main script is the entry point for your mod. It must extend the `ModAPI.ModBase` class. Here's a simple example:
+
+```gdscript
+extends ModAPI.ModBase
+
+func _on_mod_loaded():
+    print("Mod has been loaded.")
+
+func _on_mod_unloaded():
+    print("Mod has been unloaded.")
+
+func _on_game_started():
+    print("The game has started.")
+```
+
+**`ModBase` Functions:**
+
+*   `_on_mod_loaded()`: Called when your mod is loaded.
+*   `_on_mod_unloaded()`: Called when your mod is unloaded.
+*   `_on_game_started()`: Called when the game starts.
+
+### 4. Using the Mod API
+
+The modloader provides a `ModAPI` that you can use to interact with the game. Here are some of the things you can do with the `ModAPI`:
+
+*   **Add and modify stats:**
+    ```gdscript
+    ModAPI.add_stat(mod, "max_health", 100)
+    ModAPI.add_modifier(mod, "move_speed", 1.5)
+    ```
+*   **Manage settings:**
+    ```gdscript
+    var my_setting = ModAPI.get_setting(mod.id, "my_setting", "default_value")
+    ModAPI.set_setting(mod.id, "my_setting", "new_value")
+    ```
+*   **Hook into game functions:**
+    ```gdscript
+    var hook = Hook.new()
+    hook.method = "some_function"
+    hook.pre_callback = func(args):
+        print("Before the function is called.")
+    hook.post_callback = func(args, return_value):
+        print("After the function is called.")
+    
+    var node = get_node("/root/Game/Player")
+    ModAPI.add_hook(mod, node, hook)
+    ```
+
+## Example Mod
+
+The modloader comes with an example mod that demonstrates how to add a setting to increase the player's max health. You can find it in the `mods/example` directory.
+
+## Mod API Reference
+
+The `ModAPI` provides the following functions:
+
+*   `add_hook(mod: Mod, node: Node, hook: Hook)`: Adds a hook to a method on a node.
+*   `replace_script(node: Node, new_script_path: String)`: Replaces the script on a node.
+*   `add_stat(mod: Mod, stat: String, value)`: Adds a value to a player stat.
+*   `add_modifier(mod: Mod, stat: String, value)`: Adds a multiplier to a player stat.
+*   `get_setting(mod_id: String, setting_name: String, default_value)`: Gets a setting value for a mod.
+*   `set_setting(mod_id: String, setting_name: String, value)`: Sets a setting value for a mod.
+*   `recalculate_stats()`: Recalculates the player's stats.
+
+## Troubleshooting
+
+*   **"My mod is not showing up in the mod manager!"**: Make sure your mod has a valid `manifest.json` file and is in its own folder in the `user://mods` directory.
+*   **"The game crashes when I enable my mod!"**: Check the Godot console for errors. It's likely that there's an error in your mod's script.
+*   **"My settings are not saving!"**: Make sure you have defined your settings in the `manifest.json` file.

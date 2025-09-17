@@ -1,5 +1,7 @@
 extends Control
 
+const Mod = preload("res://addons/modloader/mod.gd")
+
 @onready var name_label = %ModName
 @onready var container = %Settings
 @onready var back_btn = %BackButton

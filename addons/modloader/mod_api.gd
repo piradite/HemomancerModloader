@@ -1,5 +1,9 @@
 extends Node
 
+const Mod = preload("res://addons/modloader/mod.gd")
+const ModBase = preload("res://addons/modloader/mod_base.gd")
+const Hook = preload("res://addons/modloader/hook.gd")
+
 signal game_ready
 signal setting_changed(mod_id: String, setting_name: String, new_value)
 

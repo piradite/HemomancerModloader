@@ -1,5 +1,7 @@
 extends Panel
 
+const Mod = preload("res://addons/modloader/mod.gd")
+
 @onready var name_label = %ModName
 @onready var author_label = %ModAuthor
 @onready var desc_label = %ModDescription
