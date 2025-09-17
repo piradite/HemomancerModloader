@@ -7,8 +7,6 @@ const DENY_KEYWORDS = [
 	"OS.execute",
 	"OS.shell_open",
 	"OS.create_process",
-	"FileAccess",
-	"DirAccess",
 	"HTTPRequest",
 	"HTTPClient",
 	"TCPServer",
