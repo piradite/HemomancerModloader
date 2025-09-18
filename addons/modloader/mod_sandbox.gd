@@ -11,27 +11,18 @@ const DENY_KEYWORDS = [
 	"HTTPClient",
 	"TCPServer",
 	"StreamPeerTCP",
+	"FileAccess",
+	"DirAccess",
 	"get_tree().quit",
+	"replace_script"
 ]
 
 func _init(p_mod_id: String):
 	mod_id = p_mod_id
 
-func sandbox_script(script_path: String) -> String:
-	var file = FileAccess.open(script_path, FileAccess.READ)
-	if not file:
-		return ""
-
-	var code = file.get_as_text()
-	file.close()
-
-	if not _is_script_safe(code):
-		return ""
-
-	return code
-
-func _is_script_safe(code: String) -> bool:
+func get_unsafe_keywords(code: String) -> Array:
+	var found_keywords = []
 	for keyword in DENY_KEYWORDS:
 		if code.find(keyword) != -1:
-			return false
-	return true
+			found_keywords.append(keyword)
+	return found_keywords

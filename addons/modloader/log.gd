@@ -39,8 +39,6 @@ func _log(level: LogLevel, message: String):
 	var timestamp = Time.get_datetime_string_from_system()
 	var formatted_message = "[%s] [%s] %s" % [timestamp, level_str, message]
 
-	print(formatted_message)
-
 	if log_file:
 		log_file.store_line(formatted_message)
 		log_file.flush()

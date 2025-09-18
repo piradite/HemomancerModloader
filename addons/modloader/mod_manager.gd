@@ -2,6 +2,7 @@ extends CanvasLayer
 
 @onready var list = %ModList
 @onready var reload_btn = %ReloadButton
+@onready var open_folder_btn = %OpenFolderButton
 @onready var back_btn = %BackButton
 
 const EntryScene = preload("res://addons/modloader/mod_entry.tscn")
@@ -9,6 +10,7 @@ const EntryScene = preload("res://addons/modloader/mod_entry.tscn")
 func _ready():
 	self.process_mode = Node.PROCESS_MODE_ALWAYS
 	reload_btn.pressed.connect(_on_reload_pressed)
+	open_folder_btn.pressed.connect(_on_open_folder_pressed)
 	back_btn.pressed.connect(_on_mod_manager_back_pressed)
 	populate_mod_list()
 
@@ -30,6 +32,9 @@ func _on_reload_pressed():
 	if ModLoader:
 		ModLoader.scan_and_load_mods()
 		populate_mod_list()
+
+func _on_open_folder_pressed():
+	OS.shell_open(ProjectSettings.globalize_path("user://mods/"))
 
 func _on_mod_manager_back_pressed():
 	Global.block_input_manager = false

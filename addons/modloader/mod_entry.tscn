@@ -1,13 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://c6h3c6w4xqy2v"]
 
-[ext_resource type="Script" uid="uid://rfk31e25s3qd" path="res://addons/modloader/mod_entry.gd" id="1_f8c6k"]
+[ext_resource type="Script" uid="uid://b5pk08bw8j6lg" path="res://addons/modloader/mod_entry.gd" id="1_f8c6k"]
 [ext_resource type="PackedScene" uid="uid://bv7pmwitwepj" path="res://ui/controls/button/CustomButton.tscn" id="2_c0ass"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xfw6c"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [node name="ModEntry" type="Panel"]
-custom_minimum_size = Vector2(0, 120)
+custom_minimum_size = Vector2(450, 120)
 theme_override_styles/panel = SubResource("StyleBoxFlat_xfw6c")
 script = ExtResource("1_f8c6k")
 
@@ -18,9 +18,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Header" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="ModName" type="Label" parent="VBoxContainer/Header"]
 unique_name_in_owner = true
@@ -40,18 +42,27 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "by Author"
 
-[node name="ModDescription" type="Label" parent="VBoxContainer"]
-unique_name_in_owner = true
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-text = "Description"
-autowrap_mode = 3
-text_overrun_behavior = 3
+mouse_filter = 2
 
-[node name="Footer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="DescriptionContainer" type="Control" parent="VBoxContainer/HBoxContainer"]
+clip_contents = true
 layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
 
-[node name="SettingsButton" parent="VBoxContainer/Footer" instance=ExtResource("2_c0ass")]
+[node name="ModDescription" type="Label" parent="VBoxContainer/HBoxContainer/DescriptionContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(218, 30)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 30.0
+text = "Description"
+
+[node name="SettingsButton" parent="VBoxContainer/HBoxContainer" instance=ExtResource("2_c0ass")]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_vertical = 4
 text = "Settings"

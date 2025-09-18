@@ -1,29 +1,21 @@
 [gd_scene load_steps=2 format=3 uid="uid://r470tb3ktnej"]
 
-[ext_resource type="Script" uid="uid://bdxp37kimefhe" path="res://addons/modloader/mod_notification.gd" id="1_5y5r6"]
+[ext_resource type="Script" uid="uid://bswt6vxopevmn" path="res://addons/modloader/mod_notification.gd" id="1_5y5r6"]
 
 [node name="ModNotification" type="CanvasLayer"]
 script = ExtResource("1_5y5r6")
 
-[node name="Panel" type="Panel" parent="."]
-anchors_preset = 6
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchors_preset = 1
 anchor_left = 1.0
-anchor_top = 0.5
 anchor_right = 1.0
-anchor_bottom = 0.5
 offset_left = -300.0
-offset_top = -294.25
-offset_bottom = -244.25
 grow_horizontal = 0
-grow_vertical = 2
 
-[node name="Label" type="Label" parent="Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Label" type="Label" parent="PanelContainer"]
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 2
 text = "Notification Text"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 2

@@ -7,6 +7,7 @@ var manifest: Dictionary
 var instance: Node
 var enabled: bool = true
 var version_mismatch: bool = false
+var sandboxed_keywords: Array = []
 
 var settings: Dictionary = {}
 var stats: Dictionary = {}
@@ -25,6 +26,9 @@ func get_name() -> String:
 func get_version() -> String:
 	return manifest.get("version", "0.0.0")
 
+func get_game_version() -> String:
+	return manifest.get("game_version", "*")
+
 func get_author() -> String:
 	return manifest.get("author", "Unknown")
 
@@ -40,7 +44,7 @@ func load_enabled_state():
 	var config = ConfigFile.new()
 	var err = config.load(path.path_join("mod_state.cfg"))
 	if err == OK:
-		enabled = config.get_value("state", "enabled", true)
+		enabled = config.get_value("state", "enabled", false)
 
 func get_setting(key: String, default_value):
 	return settings.get(key, default_value)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://b5w7f1y2xqy2v"]
 
-[ext_resource type="Script" uid="uid://dkr2u21dmh2xf" path="res://addons/modloader/mod_manager.gd" id="1_f8c6k"]
+[ext_resource type="Script" uid="uid://c41qte8cu0d63" path="res://addons/modloader/mod_manager.gd" id="1_f8c6k"]
 [ext_resource type="PackedScene" uid="uid://bv7pmwitwepj" path="res://ui/controls/button/CustomButton.tscn" id="2_c0ass"]
 [ext_resource type="Theme" uid="uid://yjkuilqc1xqg" path="res://assets/themes/personal_style.tres" id="3_abcde"]
 
@@ -53,6 +53,11 @@ alignment = 1
 unique_name_in_owner = true
 layout_mode = 2
 text = "Reload Mods"
+
+[node name="OpenFolderButton" parent="ColorRect/VBoxContainer/HBoxContainer" instance=ExtResource("2_c0ass")]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Open Mods Folder"
 
 [node name="BackButton" parent="ColorRect/VBoxContainer/HBoxContainer" instance=ExtResource("2_c0ass")]
 unique_name_in_owner = true

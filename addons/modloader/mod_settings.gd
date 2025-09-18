@@ -41,5 +41,25 @@ func get_setting(mod_id: String, setting_name: String, default_value):
 func set_setting(mod_id: String, setting_name: String, value):
 	if not settings.has(mod_id):
 		settings[mod_id] = {}
-	settings[mod_id][setting_name] = value
+	if not settings[mod_id].has("settings"):
+		settings[mod_id]["settings"] = {}
+	settings[mod_id]["settings"][setting_name] = value
 	save_settings()
+
+func get_permission(mod_id: String, permission_key: String) -> String:
+	if settings.has(mod_id) and settings[mod_id].has("permissions") and settings[mod_id]["permissions"].has(permission_key):
+		return settings[mod_id]["permissions"][permission_key]
+	return "ask"
+
+func set_permission(mod_id: String, permission_key: String, value: String):
+	if not settings.has(mod_id):
+		settings[mod_id] = {}
+	if not settings[mod_id].has("permissions"):
+		settings[mod_id]["permissions"] = {}
+	settings[mod_id]["permissions"][permission_key] = value
+	save_settings()
+
+func clear_permissions(mod_id: String):
+	if settings.has(mod_id) and settings[mod_id].has("permissions"):
+		settings[mod_id].erase("permissions")
+		save_settings()
