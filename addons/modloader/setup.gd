@@ -50,7 +50,7 @@ func get_combined_global_script_class_cache() -> ConfigFile:
         game_classes.append(c)
 
     var modloader_classes = [
-        {"base": "Resource", "class": "PlayerStats", "language": "GDScript", "path": "res://game/types/stats.gd"},
+        {"base": "Resource", "class": "PlayerStats", "language": "GDScript", "path": "res://types/stats.gd"},
         {"base": "RefCounted", "class": "Mod", "language": "GDScript", "path": "res://addons/modloader/mod.gd"},
         {"base": "Resource", "class": "Hook", "language": "GDScript", "path": "res://addons/modloader/hook.gd"},
         {"base": "Node", "class": "ModBase", "language": "GDScript", "path": "res://addons/modloader/mod_base.gd"},

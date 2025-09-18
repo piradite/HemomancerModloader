@@ -11,7 +11,7 @@ This is a modloader for the game Hemomancer. It allows you to create and manage 
     ```
     --script addons/modloader/setup.gd
     ```
-5.  **Run the Game:** Start the game once. The modloader will perform a one-time setup. You will see a confirmation message, and the game will restart.
+5.  **Run the Game:** Start the game once. The modloader will perform a one-time setup. You will see a confirmation message, then simply remove the launch option.
 6.  **Done!** The modloader is now installed and working.
 
 ## Mod Directory

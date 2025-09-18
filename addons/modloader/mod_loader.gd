@@ -68,7 +68,7 @@ func _inject_mods_button(main_menu_node):
     if not quit_button:
         return
 
-    var button = preload("res://ui/controls/button/CustomButton.tscn").instantiate()
+    var button = preload("res://ui/hud/controls/button/CustomButton.tscn").instantiate()
     button.name = "ModsButton"
     button.text = "MODS"
     signpost.add_child(button)
