@@ -171,13 +171,13 @@ func _on_dialog_hidden():
 	_process_permission_queue()
 
 func sandboxed_file_access_open(path: String, flags: int) -> FileAccess:
-	if not path.begins_with("user://") and not path.begins_with("res://"):
+	if not path.begins_with(run_path()) and not path.begins_with("user://") and not path.begins_with("res://"):
 		return null
 	return FileAccess.open(path, flags)
 
 
 func sandboxed_dir_access_open(path: String) -> DirAccess:
-	if not path.begins_with("user://") and not path.begins_with("res://"):
+	if not path.begins_with(run_path()) and not path.begins_with("user://") and not path.begins_with("res://"):
 		return null
 	return DirAccess.open(path)
 
@@ -202,4 +202,11 @@ func sandboxed_tcp_peer_new() -> StreamPeerTCP:
 
 func sandboxed_quit():
 	pass
-pass
+
+func pathify(path: String) -> String:
+	if path.begins_with("run://"):
+		return "%s/%s" % [run_path(), path.trim_prefix("run://")]
+	return path
+
+func run_path() -> String:
+	return OS.get_executable_path().get_base_dir()

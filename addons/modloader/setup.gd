@@ -21,6 +21,7 @@ func _init() -> void:
 		return
 
 	setup_modloader()
+	modded_start()
 
 func is_modloader_setup() -> bool:
 	var override_path = ModLoaderSetupUtils.get_override_path()
@@ -29,13 +30,21 @@ func is_modloader_setup() -> bool:
 func modded_start() -> void:
 	ModLoaderSetupLog.info("ModLoader is already set up. Nothing to do.", LOG_NAME)
 
+	var args: PackedStringArray = ["--"]
+	args.append_array(OS.get_cmdline_user_args())
+
+	OS.execute(
+		OS.get_executable_path(),
+		args,
+		[], false, false
+	)
+
 func setup_modloader() -> void:
 	ModLoaderSetupLog.info("Setting up ModLoader...", LOG_NAME)
 	handle_override_cfg()
 
 	ModLoaderSetupLog.info("ModLoader is set up. Please restart the game.", LOG_NAME)
-	OS.alert("The ModLoader has been set up. The game needs to be restarted to apply the changes.")
-	restart()
+	#OS.alert("The ModLoader has been set up. The game needs to be restarted to apply the changes.")
 
 func make_project_data_public() -> void:
 	pass
@@ -98,7 +107,3 @@ func handle_override_cfg() -> void:
 	var save_error := final_config.save(override_path)
 	if save_error != OK:
 		ModLoaderSetupLog.error("Failed to save override.cfg with error code: %s" % save_error, LOG_NAME)
-
-func restart() -> void:
-	OS.set_restart_on_exit(true)
-	quit()
