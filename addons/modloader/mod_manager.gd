@@ -34,7 +34,7 @@ func _on_reload_pressed():
 		populate_mod_list()
 
 func _on_open_folder_pressed():
-	OS.shell_open(ProjectSettings.globalize_path("user://mods/"))
+	OS.shell_open(ModAPI.pathify("run://mods/"))
 
 func _on_mod_manager_back_pressed():
 	Global.block_input_manager = false

@@ -7,7 +7,7 @@ const ModSandbox = preload("res://addons/modloader/mod_sandbox.gd")
 
 signal game_ready
 
-const MODS_DIRS = ["user://mods/", "res://mods/"]
+const MODS_DIRS = ["run://mods/", "user://mods/", "res://mods/"]
 const FileWatcher = preload("res://addons/modloader/file_watcher.gd")
 
 var mods = {}
@@ -64,10 +64,8 @@ func _on_settings_ready():
 				if result:
 					version = result.get_string()
 
-	if not DirAccess.dir_exists_absolute("user://mods/"):
-		DirAccess.make_dir_recursive_absolute("user://mods/")
-	
 	for mod_dir in MODS_DIRS:
+		mod_dir = ModAPI.pathify(mod_dir)
 		if not DirAccess.dir_exists_absolute(mod_dir):
 			continue
 		var file_watcher = FileWatcher.new()
@@ -147,7 +145,8 @@ func scan_and_load_mods():
 	order.clear()
 	
 	for mod_dir_path in MODS_DIRS:
-		var dir = DirAccess.open(mod_dir_path)
+		var mod_dir: String = ModAPI.pathify(mod_dir_path)
+		var dir = DirAccess.open(mod_dir)
 		if dir:
 			dir.list_dir_begin()
 			var file_name = dir.get_next()
@@ -158,7 +157,7 @@ func scan_and_load_mods():
 						file_name = dir.get_next()
 						continue
 
-					var mod_path = mod_dir_path.path_join(file_name)
+					var mod_path = mod_dir.path_join(file_name)
 					var manifest_path = mod_path.path_join("manifest.json")
 					if FileAccess.file_exists(manifest_path):
 						var manifest = _parse_manifest(manifest_path)
@@ -179,8 +178,9 @@ func scan_and_load_mods():
 									mod.sandboxed_keywords = sandbox.get_unsafe_keywords(script_content)
 				file_name = dir.get_next()
 		else:
-			if mod_dir_path == "user://mods/":
+			if mod_dir_path == "run://mods/":
 				ModNotifications.show_notification("Could not open mod directory: %s" % mod_dir_path)
+				ModLoaderLog.error("Could not open mod directory: %s" % mod_dir_path)
 
 	_resolve_dependencies()
 	_load_mods()

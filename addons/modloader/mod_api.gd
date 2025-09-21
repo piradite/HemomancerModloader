@@ -202,4 +202,11 @@ func sandboxed_tcp_peer_new() -> StreamPeerTCP:
 
 func sandboxed_quit():
 	pass
-pass
+
+func pathify(path: String) -> String:
+	if path.begins_with("run://"):
+		return "%s/%s" % [run_path(), path.trim_prefix("run://")]
+	return path
+
+func run_path() -> String:
+	return OS.get_executable_path().get_base_dir()
