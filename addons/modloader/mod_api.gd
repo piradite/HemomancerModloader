@@ -171,13 +171,13 @@ func _on_dialog_hidden():
 	_process_permission_queue()
 
 func sandboxed_file_access_open(path: String, flags: int) -> FileAccess:
-	if not path.begins_with("user://") and not path.begins_with("res://"):
+	if not path.begins_with(run_path()) and not path.begins_with("user://") and not path.begins_with("res://"):
 		return null
 	return FileAccess.open(path, flags)
 
 
 func sandboxed_dir_access_open(path: String) -> DirAccess:
-	if not path.begins_with("user://") and not path.begins_with("res://"):
+	if not path.begins_with(run_path()) and not path.begins_with("user://") and not path.begins_with("res://"):
 		return null
 	return DirAccess.open(path)
 
