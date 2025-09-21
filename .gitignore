@@ -1,0 +1,31 @@
+# Run directory
+HemomancerPlaytest.exe
+HemomancerPlaytest.pck
+libgodotsteam.windows.template_release.x86_64.dll
+steam_api64.dll
+run.bat
+override.cfg
+
+# IDE
+.vscode/
+
+# MAKE SURE TO UPDATE THIS EVERY NEW VERSION INCASE OF NEW FOLDERS!!!!
+# Hemomancer Godot project
+.godot/
+assets/
+autoloads/
+components/
+data/
+data_classes/
+database/
+game/
+managers/
+maps/
+models/
+scenes/
+types/
+ui/
+utils/
+wip/
+default_bus_layout.tres
+project.godot
